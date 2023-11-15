@@ -1,0 +1,80 @@
+@use 'static-styles.scss' as static;
+
+header {
+    height: 6.3rem;
+    width: 100%;
+    background-color: static.$primary-color1;
+}
+
+.header-body {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+.header-title {
+    font-size: 50px;
+    padding-left: 1rem;
+}
+
+.header-auth {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+}
+
+.header-auth-button {
+    border: 2px dashed black;
+    font-size: 30px;
+    padding-right: 1rem;
+    background-color: static.$primary-color1;
+    padding: 1rem;
+    border-radius: 25px;
+
+    transition: 0.3s 0s;
+
+    &:hover {
+        color: white;
+        border: 2px solid white;
+        border-radius: 0px;
+    }
+}
+
+
+footer {
+    display: flex;
+    height: 6.3rem;
+    width: 100%;
+    background-color: static.$primary-color3;
+    margin-top: auto;
+}
+
+.footer-img-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-content: center;
+    align-items: flex-start;
+    padding-left: 1rem;
+}
+
+.footer-img {
+    height: 5rem;
+    border-radius: 50%;
+}
+
+.footer-text {
+    display: flex;
+    color: rgb(98, 98, 98);
+    font-size: 25px;
+    margin-left: auto;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 1rem;
+}

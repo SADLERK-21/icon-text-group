@@ -1,0 +1,6 @@
+<div class="home-page">
+    <div class="home-page-tiles-body">
+        <home-page-tile *ngFor="let tile of tiles" [title]="tile.title" [routerPath]="tile.routerPath">
+        </home-page-tile>
+    </div>
+</div>
