@@ -1,0 +1,73 @@
+@use '../../static-styles.scss' as static;
+
+.profile-page {
+    padding: 1rem;
+}
+
+.profile-page-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-page-button-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-page-edit-button {
+    border: 2px dashed black;
+    padding-right: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: white;
+
+    transition: 0.3s 0s;
+
+    &:hover {
+        color: white;
+        border: 2px solid static.$primary-color3;
+        background-color: static.$primary-color3;
+        border-radius: 0px;
+    }
+}
+
+.profile-page-submit-button {
+    border: 2px dashed black;
+    padding-right: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: white;
+    margin-left: 0.5rem;
+
+    transition: 0.3s 0s;
+
+    &:hover {
+        color: white;
+        border: 2px solid static.$primary-color3;
+        background-color: static.$primary-color3;
+        border-radius: 0px;
+    }
+}
+
+.profile-page-discard-button {
+    border: 2px dashed black;
+    padding-right: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    background-color: white;
+    margin-left: 0.5rem;
+
+    transition: 0.3s 0s;
+
+    &:hover {
+        color: white;
+        border: 2px solid static.$error-text-color;
+        background-color: static.$error-text-color;
+        border-radius: 0px;
+    }
+}
+

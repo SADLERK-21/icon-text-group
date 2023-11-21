@@ -8,7 +8,7 @@ import { HomePageTile } from './home-page-tile/home-page-tile.component';
 })
 export class HomePageComponent implements OnInit {
 
-  public tiles: HomePageTile[] = [{ title: "Inventory", routerPath: "" }, { title: "Billings", routerPath: "" }, { title: "Reports", routerPath: "" }, { title: "Profile", routerPath: "" }]
+  public tiles: HomePageTile[] = [{ title: "Home", routerPath: "" }, { title: "Inventory", routerPath: "" }, { title: "Billings", routerPath: "" }, { title: "Reports", routerPath: "" }, { title: "Profile", routerPath: "" }]
 
   constructor() { }
 

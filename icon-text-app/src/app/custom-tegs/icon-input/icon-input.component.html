@@ -1,0 +1,16 @@
+<div class="icon-input">
+    <div class="icon-input-title">
+        {{title}}
+    </div>
+
+    <div class="icon-input-box">
+        <div *ngIf="type === 'number' && !isDisabled" class="icon-input-region">
+            +7
+        </div>
+        <input [type]="type" [maxlength]="maxLenght" [ngModel]="text" (ngModelChange)="textChange.emit($event)" [disabled]="isDisabled" [style]="conditionStyle" class="input">
+    </div>
+
+    <div *ngIf="!isValid" class="icon-input-valid-message">
+        This field is Invalid
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="profile-page">
+    <div class="profile-page-section">
+        <icon-input [title]="'Email'" [type]="emailType" [isValid]="isValid(0)" [isDisabled]="!isEditable" [(text)]="email">
+        </icon-input>
+    </div>
+
+    <div class="profile-page-section">
+        <icon-input [title]="'First Name'" [type]="textType" [isValid]="isValid(1)" [isDisabled]="!isEditable" [(text)]="firstNameText">
+        </icon-input>
+    </div>
+
+    <div class="profile-page-section">
+        <icon-input [title]="'Last Name'"  [type]="textType" [isValid]="isValid(2)" [isDisabled]="!isEditable" [(text)]="lastNameText">
+        </icon-input>
+    </div>
+
+    <div class="profile-page-section">
+        <icon-input [title]="'Phone number'" [type]="numberType" [isValid]="isValid(3)" [isDisabled]="!isEditable" [(text)]="phoneNumber">
+        </icon-input>
+    </div>
+
+    <div class="profile-page-section">
+        <icon-input [title]="'Web Site'" [type]="textType" [isValid]="isValid(4)" [isDisabled]="!isEditable" [(text)]="webSiteText">
+        </icon-input>
+    </div>
+
+    <div class="profile-page-button-section">
+        <ng-container *ngIf="!isEditable; else submitSection">
+            <button class="profile-page-edit-button" (click)="setEditable()">
+                Edit Profile
+            </button>
+        </ng-container>
+        <ng-template #submitSection>
+            <button class="profile-page-submit-button" (click)="saveChanges()" [disabled]="isSubmitButtonDisabled()">
+                Submit
+            </button>
+            <button class="profile-page-discard-button">
+                Discard
+            </button>
+        </ng-template>
+    </div>
+</div>
