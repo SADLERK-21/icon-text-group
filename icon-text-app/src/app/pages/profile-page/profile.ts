@@ -1,7 +1,9 @@
 export interface Profile {
+    id: number;
     firstName: string;
     lastName: string;
-    phoneNumber: number;
+    phoneNumber: string;
     email: string;
     websiteUrl: string;
+    password: string;
 }

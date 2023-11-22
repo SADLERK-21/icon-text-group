@@ -10,7 +10,8 @@ export class HomePageTileComponent implements OnInit {
   @Input() public title: string = '';
   @Input() public routerPath: string = '';
 
-  constructor() { }
+  constructor(
+  ) { }
 
   ngOnInit(): void {
   }

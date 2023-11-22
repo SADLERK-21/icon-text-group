@@ -1,0 +1,66 @@
+<div class="login-page">
+    <ng-container *ngIf="!isNewUser; else registerSection">
+        <div class="login-page-section">
+            <icon-input [title]="'Email'" [type]="emailType" [(text)]="emailText">
+            </icon-input>
+        </div>
+
+        <div class="login-page-section">
+            <icon-input [title]="'Password'" [type]="passwordType" [(text)]="passwordText">
+            </icon-input>
+        </div>
+
+        <div class="login-page-button-section">
+            <button class="login-page-submit-button" (click)="loginUser()" [disabled]="isLoginButtonDisabled()">
+                Log In
+            </button>
+            <button class="login-page-discard-button">
+                Cansel
+            </button>
+            <button class="login-page-register-button" (click)="registerClick()">
+                Register
+            </button>
+        </div>
+    </ng-container>
+
+    <ng-template #registerSection>
+        <div class="login-page-section">
+            <icon-input [title]="'Email'" [type]="emailType" [isValid]="isValid(0)" [(text)]="emailText">
+            </icon-input>
+        </div>
+
+        <div class="login-page-section">
+            <icon-input [title]="'First Name'" [type]="textType" [isValid]="isValid(1)" [(text)]="firstNameText">
+            </icon-input>
+        </div>
+
+        <div class="login-page-section">
+            <icon-input [title]="'Last Name'" [type]="textType" [isValid]="isValid(2)" [(text)]="lastNameText">
+            </icon-input>
+        </div>
+
+        <div class="login-page-section">
+            <icon-input [title]="'Phone number'" [type]="numberType" [isValid]="isValid(3)" [(text)]="phoneNumber">
+            </icon-input>
+        </div>
+
+        <div class="login-page-section">
+            <icon-input [title]="'Web Site'" [type]="textType" [isValid]="isValid(4)" [(text)]="webSiteText">
+            </icon-input>
+        </div>
+
+        <div class="login-page-section">
+            <icon-input [title]="'Password'" [type]="passwordType" [isValid]="isValid(5)" [(text)]="passwordText">
+            </icon-input>
+        </div>
+
+        <div class="login-page-button-section">
+            <button class="login-page-submit-button" (click)="registerNewUser()" [disabled]="isLoginButtonDisabled()">
+                Ok
+            </button>
+            <button class="login-page-discard-button">
+                Cansel
+            </button>
+        </div>
+    </ng-template>
+</div>

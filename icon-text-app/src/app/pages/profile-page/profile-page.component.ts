@@ -1,14 +1,16 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable, Observer, Subject, Subscriber, of } from 'rxjs';
 import { IconInputType } from 'src/app/custom-tegs/icon-input/icon-input.component';
-import { ProfileChangeEvent, ProfileFields, ProfileService } from './profile.service';
+import { ProfileValidationEvent, ProfileFields, ProfileService } from './profile.service';
+import { LoginService } from 'src/app/core-services/login.service';
+import { ApiSimulator } from 'src/app/core-services/api-simulator';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent implements OnInit, AfterViewInit {
 
   public isEditable: boolean = false;
 
@@ -22,27 +24,54 @@ export class ProfilePageComponent implements OnInit {
   public phoneNumber: string;
   public webSiteText: string;
 
-  private profileChangeEvent: ProfileChangeEvent;
+  private profileValidationEvent: ProfileValidationEvent;
 
   constructor(
     private profileService: ProfileService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private apiSim: ApiSimulator,
+    private loginSevice: LoginService
   ) { }
 
   ngOnInit(): void {
-    this.profileService.profileChangeSubscription.subscribe(event => {
-      this.profileChangeEvent = event;
-      console.log(event);
+    this.profileService.profileValidationSubscription.subscribe(event => {
+      this.profileValidationEvent = event;
+      console.log(event, '1-1');
       this.changeDetectorRef.markForCheck();
     });
+    // this.loginSevice.loginedUserId.subscribe(id => {
+    //   console.log('id:', id);
+
+    // })
+
+
+
+    const profile = this.loginSevice.getProfile(this.apiSim);
+    console.log('√', this.apiSim.date);
+    console.log('profile: ', profile, '\n', 'id: ', this.apiSim.getLoginedProfileId());
+    if (profile) {
+      this.emailText = profile.email;
+      this.firstNameText = profile.firstName;
+      this.lastNameText = profile.lastName;
+      this.phoneNumber = profile.phoneNumber;
+      this.webSiteText = profile.websiteUrl;
+
+      this.changeDetectorRef.markForCheck();
+    }
   }
 
-  public set email(value: string) {
-    this.emailText = value;
-  }
+  ngAfterViewInit(): void {
+    //const profile = this.apiSim.getProfileById(this.apiSim.getLoginedProfileId());
+    //console.log('profile: ', profile, '\n', 'id: ', this.apiSim.getLoginedProfileId());
+    // if (profile) {
+    //   this.emailText = profile.email;
+    //   this.firstNameText = profile.firstName;
+    //   this.lastNameText = profile.lastName;
+    //   this.phoneNumber = profile.phoneNumber;
+    //   this.webSiteText = profile.websiteUrl;
 
-  public get email(): string {
-    return this.emailText;
+    //   this.changeDetectorRef.markForCheck();
+    // }
   }
 
   public setEditable() {
@@ -50,14 +79,14 @@ export class ProfilePageComponent implements OnInit {
   }
 
   public isValid(inputType: ProfileFields): boolean {
-    if (this.profileChangeEvent?.invalidfields?.some(field => field === inputType)) {
+    if (this.profileValidationEvent?.invalidfields?.some(field => field === inputType)) {
       return false;
     }
     return true
   }
 
   public saveChanges() {
-    this.profileService.changeProfile(
+    this.profileService.validProfileAfterAddOrChange(
       this.emailText,
       this.firstNameText,
       this.lastNameText,

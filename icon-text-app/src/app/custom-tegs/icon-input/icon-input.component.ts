@@ -34,7 +34,8 @@ export class IconInputComponent implements OnInit {
 export enum IconInputType {
   Text = 'text',
   Email = 'email',
-  Number = 'number'
+  Number = 'number',
+  Password = 'password'
 }
 
 export interface iconInputValidObject {
