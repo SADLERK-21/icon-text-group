@@ -9,7 +9,6 @@ import { LoginRegisterUserService } from 'src/app/core-services/login-register-u
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
-
   public isEditable: boolean = false;
 
   public emailType = IconInputType.Email
@@ -36,6 +35,7 @@ export class ProfilePageComponent implements OnInit {
     this.profileService.profileValidationSubscription.subscribe(event => {
       this.profileValidationEvent = event;
       if (event.isPassed && profile) {
+        console.log(this.firstNameText);
         this.loginSevice.setUser(
           this.emailText,
           this.firstNameText,
@@ -100,7 +100,6 @@ export class ProfilePageComponent implements OnInit {
       this.webSiteText = profile.websiteUrl;
     }
     this.setEditable()
-    console.log(this.isEditable);
     this.changeDetectorRef.markForCheck();
   }
 }

@@ -55,6 +55,7 @@ export class LoginRegisterUserService {
                 email, firstName, lastName, phoneNumber, webSite, profileId
             )
 
+            this.loginedProfile = this.api.getProfileById(this.loginedProfileId);
             this.userChangeResponse.next(true);
         } else {
             this.api.setNewProfile(
@@ -62,6 +63,7 @@ export class LoginRegisterUserService {
             );
 
             this.loginedProfileId = this.api.getProfileByLogInData(email, password)?.id ?? 0;
+            this.loginedProfile = this.api.getProfileById(this.loginedProfileId);
             this.userloginResponse.next(true);
         }
     }

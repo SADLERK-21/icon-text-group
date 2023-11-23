@@ -8,7 +8,8 @@
             +7
         </div>
 
-        <input [type]="type" [maxlength]="maxLenght" [ngModel]="text" (ngModelChange)="textChange.emit($event)" [disabled]="isDisabled" [style]="conditionStyle" class="input">
+        <input [type]="type" [maxlength]="maxLenght" [ngModel]="text" (ngModelChange)="textChange.emit($event)"
+            [disabled]="isDisabled" [style]="conditionStyle" class="input">
 
         <div *ngIf="!isValid" class="icon-input-valid-message">
             This field is Invalid

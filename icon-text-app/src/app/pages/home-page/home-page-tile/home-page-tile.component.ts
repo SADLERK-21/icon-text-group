@@ -7,8 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HomePageTileComponent implements OnInit {
 
-  @Input() public title: string = '';
-  @Input() public routerPath: string = '';
+  @Input() public title: string;
+  @Input() public routerPath: string;
   @Input() isDisabled: boolean;
 
   constructor(

@@ -6,11 +6,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./icon-input.component.scss']
 })
 export class IconInputComponent implements OnInit {
-  @Input() public title: string = '';
+  @Input() public title: string;
   @Input() public type: IconInputType = IconInputType.Text
   @Input() public isDisabled: boolean = false;
   @Input() public isValid: boolean = true;
-  @Input() public text: string = '';
+  @Input() public text: string ;
   @Output() public textChange = new EventEmitter<string>();
 
   public maxLenght: number = this.type === IconInputType.Text ? 255 : 10;
