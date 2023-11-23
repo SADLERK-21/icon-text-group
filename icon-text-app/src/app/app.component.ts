@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { LoginService } from './core-services/login.service';
-import { ApiSimulator } from './core-services/api-simulator';
-import { ProfileService } from './pages/profile-page/profile.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { LoginRegisterUserService } from './core-services/login-register-user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,15 +8,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'icon-text-app';
-  //public isLogined: boolean = false;
+
   public firstNameText: string;
+  public viewMessage: boolean;
 
   constructor(
-    private readonly loginService: LoginService,
-    private readonly profileService: ProfileService,
-    private readonly apiSim: ApiSimulator,
+    private readonly loginService: LoginRegisterUserService,
     private changeDetectorRef: ChangeDetectorRef,
     private readonly router: Router
   ) {
@@ -26,11 +23,16 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loginService.loginResponse.subscribe(event => {
+    this.loginService.userloginResponse.subscribe(() => {
       this.changeDetectorRef.markForCheck();
     });
 
-    this.profileService.profileValidationSubscription.subscribe(event => {
+    this.loginService.userChangeResponse.subscribe(() => {
+      this.viewMessage = true;
+      setTimeout(() => {
+        this.viewMessage = false;
+        this.changeDetectorRef.markForCheck();
+      }, 15000);
       this.changeDetectorRef.markForCheck();
     });
   }
@@ -40,7 +42,7 @@ export class AppComponent implements OnInit {
   }
 
   public get profileName(): string | undefined {
-    return this.loginService.getProfile(this.apiSim)?.firstName;
+    return this.loginService.profile?.firstName;
   }
 
   public logOut() {
@@ -50,5 +52,14 @@ export class AppComponent implements OnInit {
 
   public click() {
     this.changeDetectorRef.markForCheck();
+  }
+
+  public onMessageClick() {
+    this.viewMessage = false;
+  }
+
+  public ngOnDestroy(): void {
+    this.loginService.userloginResponse.unsubscribe();
+    this.loginService.userChangeResponse.unsubscribe();
   }
 }

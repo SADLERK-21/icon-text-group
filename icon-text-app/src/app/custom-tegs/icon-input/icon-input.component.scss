@@ -41,7 +41,7 @@
     border: none;
     border-bottom: 2px solid static.$primary-color3;
     padding: 0.5rem;
-    
+
     transition: 0.3s 0s;
 
     &:focus {
@@ -52,7 +52,24 @@
 }
 
 .icon-input-valid-message {
-    font-size: 20px;
-    color: static.$error-text-color;
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    /* font-size: 7px; */
+    background-color: #ad0101;
+    color: #ad0101;
+    left: 100%;
+    overflow: hidden;
+    border-radius: 100%;
 
+    transition: 0.1s 0s;
+
+    &:hover {
+        padding: 0.5rem;
+        background-color: #ad0101;
+        font-size: 20px;
+        width: 10rem;
+        color: #ffffff;
+        border-radius: 0;
+    }
 }

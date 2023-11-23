@@ -8,20 +8,20 @@ export class ApiSimulator {
     public savedProfiles: Profile[] = [
         {
             id: 1,
-            email: '89370703848@mail.ru',
-            firstName: 'Valeriy',
-            lastName: 'Manshin',
-            phoneNumber: '9370703848',
+            email: 'Admin@gmail.com',
+            firstName: 'Admin',
+            lastName: 'Admin',
+            phoneNumber: '7777777777',
             websiteUrl: 'https://vk.com/sadlerk',
-            password: '123'
+            password: '111'
         }
     ];
 
-    public getProfileId(email: string, password: string) {
-        return this.savedProfiles.find(profile => profile.email === email && profile.password === password)?.id;
+    public getProfileByLogInData(email: string, password: string) {
+        return this.savedProfiles.find(profile => profile.email === email && profile.password === password);
     };
 
-    public getProfile(id: number | undefined) {
+    public getProfileById(id: number | undefined) {
         return this.savedProfiles.find(profile => profile.id === id);
     };
 

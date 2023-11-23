@@ -1,5 +1,5 @@
 <div class="login-page">
-    <ng-container *ngIf="!isNewUser; else registerSection">
+    <ng-container *ngIf="!isRegisterProfileMode; else registerSection">
         <div class="login-page-section">
             <icon-input [title]="'Email'" [type]="emailType" [(text)]="emailText">
             </icon-input>
@@ -14,7 +14,7 @@
             <button class="login-page-submit-button" (click)="loginUser()" [disabled]="isLoginButtonDisabled()">
                 Log In
             </button>
-            <button class="login-page-discard-button">
+            <button class="login-page-discard-button" (click)="discardLogin()" >
                 Cansel
             </button>
             <button class="login-page-register-button" (click)="registerClick()">
@@ -58,7 +58,7 @@
             <button class="login-page-submit-button" (click)="registerNewUser()" [disabled]="isLoginButtonDisabled()">
                 Ok
             </button>
-            <button class="login-page-discard-button">
+            <button class="login-page-discard-button" (click)="discardRegister()">
                 Cansel
             </button>
         </div>

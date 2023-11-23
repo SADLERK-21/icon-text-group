@@ -94,6 +94,21 @@ footer {
     padding-right: 1rem;
 }
 
+.header-message {
+    font-size: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    color: white;
+}
+
+.header-message-bottom {
+    font-size: 15px;
+    color: static.$primary-color3;
+}
+
 .profile {
     font-size: 25px;
 }

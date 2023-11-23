@@ -6,6 +6,13 @@
       Zen Totem
     </div>
 
+    <div class="header-message" *ngIf="viewMessage" (click)="onMessageClick()">
+      The profile has been changed
+      <div class="header-message-bottom">
+        Click to close
+      </div>
+    </div>
+
     <div class="header-auth">
       <ng-container *ngIf="isLogined; else singInSection">
         <div [routerLink]="'/profile'" class="profile">

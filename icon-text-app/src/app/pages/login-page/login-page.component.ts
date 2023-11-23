@@ -1,8 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { IconInputType } from 'src/app/custom-tegs/icon-input/icon-input.component';
 import { ProfileValidationEvent, ProfileService, ProfileFields } from '../profile-page/profile.service';
-import { LoginService } from 'src/app/core-services/login.service';
-import { ApiSimulator } from 'src/app/core-services/api-simulator';
+import { LoginRegisterUserService } from 'src/app/core-services/login-register-user.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
   public emailType = IconInputType.Email;
   public passwordType = IconInputType.Password;
   public textType = IconInputType.Text;
@@ -23,15 +22,14 @@ export class LoginPageComponent implements OnInit {
   public webSiteText: string;
   public passwordText: string
 
-  public isNewUser: boolean = false;
+  public isRegisterProfileMode: boolean = false;
 
   private profileValidationEvent: ProfileValidationEvent;
 
   constructor(
     private profileService: ProfileService,
-    private loginService: LoginService,
+    private loginService: LoginRegisterUserService,
     private changeDetectorRef: ChangeDetectorRef,
-    private apiSim: ApiSimulator,
     private router: Router
   ) { }
 
@@ -40,7 +38,6 @@ export class LoginPageComponent implements OnInit {
       this.profileValidationEvent = event;
       if (event.isPassed) {
         this.loginService.setUser(
-          this.apiSim,
           this.emailText,
           this.firstNameText,
           this.lastNameText,
@@ -53,7 +50,7 @@ export class LoginPageComponent implements OnInit {
       this.changeDetectorRef.markForCheck();
     });
 
-    this.loginService.loginResponse.subscribe(response => {
+    this.loginService.userloginResponse.subscribe(response => {
       if (response) {
         this.router.navigate(['/home']);
       }
@@ -68,7 +65,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   public registerClick() {
-    this.isNewUser = !this.isNewUser;
+    this.isRegisterProfileMode = !this.isRegisterProfileMode;
   }
 
   public isLoginButtonDisabled(): boolean {
@@ -88,5 +85,29 @@ export class LoginPageComponent implements OnInit {
 
   public loginUser() {
     this.loginService.loginUser(this.emailText, this.passwordText);
+  }
+
+  public discardLogin() {
+    this.emailText = ''
+    this.passwordText = ''
+
+    this.router.navigate(['/home']);
+  }
+
+  public discardRegister() {
+    this.emailText = ''
+    this.firstNameText = ''
+    this.lastNameText = ''
+    this.phoneNumber = ''
+    this.webSiteText = ''
+    this.passwordText = ''
+
+    this.isRegisterProfileMode = false;
+    this.changeDetectorRef.markForCheck();
+  }
+
+  public ngOnDestroy(): void {
+    this.profileService.profileValidationSubscription.unsubscribe();
+    this.loginService.userloginResponse.unsubscribe();
   }
 }

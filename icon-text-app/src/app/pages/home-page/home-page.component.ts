@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { HomePageTile } from './home-page-tile/home-page-tile.component';
-import { LoginService } from 'src/app/core-services/login.service';
+import { LoginRegisterUserService } from 'src/app/core-services/login-register-user.service';
 
 @Component({
   selector: 'home-page',
@@ -8,7 +8,7 @@ import { LoginService } from 'src/app/core-services/login.service';
   styleUrls: ['./home-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent implements OnInit, OnDestroy {
   public tiles: HomePageTile[] = [
     { title: "Home", routerPath: "/home" },
     { title: "Inventory", routerPath: "/inventory" },
@@ -18,12 +18,12 @@ export class HomePageComponent implements OnInit {
   ]
 
   constructor(
-    private readonly loginService: LoginService,
+    private readonly loginService: LoginRegisterUserService,
     private readonly changeDetectorRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.loginService.loginResponse.subscribe(() => {
+    this.loginService.userloginResponse.subscribe(() => {
       this.changeDetectorRef.markForCheck();
     });
   }
@@ -33,7 +33,6 @@ export class HomePageComponent implements OnInit {
   }
 
   public isDisabled(path: string): boolean {
-    console.log('disabled', this.isUserLogined);
     if (!this.isUserLogined) {
       switch (path) {
         case '/inventory': return true;
@@ -43,5 +42,9 @@ export class HomePageComponent implements OnInit {
       }
     }
     return false;
+  }
+  
+  ngOnDestroy(): void {
+    this.loginService.userloginResponse.unsubscribe();
   }
 }

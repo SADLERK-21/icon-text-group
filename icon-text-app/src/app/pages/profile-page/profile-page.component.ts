@@ -1,15 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { IconInputType } from 'src/app/custom-tegs/icon-input/icon-input.component';
 import { ProfileValidationEvent, ProfileFields, ProfileService } from './profile.service';
-import { LoginService } from 'src/app/core-services/login.service';
-import { ApiSimulator } from 'src/app/core-services/api-simulator';
+import { LoginRegisterUserService } from 'src/app/core-services/login-register-user.service';
 
 @Component({
   selector: 'app-profile-page',
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit {
+export class ProfilePageComponent implements OnInit, OnDestroy {
 
   public isEditable: boolean = false;
 
@@ -28,18 +27,16 @@ export class ProfilePageComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private changeDetectorRef: ChangeDetectorRef,
-    private apiSim: ApiSimulator,
-    private loginSevice: LoginService
+    private loginSevice: LoginRegisterUserService
   ) { }
 
   ngOnInit(): void {
-    const profile = this.loginSevice.getProfile(this.apiSim);
+    const profile = this.loginSevice.profile;
 
     this.profileService.profileValidationSubscription.subscribe(event => {
       this.profileValidationEvent = event;
       if (event.isPassed && profile) {
         this.loginSevice.setUser(
-          this.apiSim,
           this.emailText,
           this.firstNameText,
           this.lastNameText,
@@ -52,7 +49,7 @@ export class ProfilePageComponent implements OnInit {
       }
       this.changeDetectorRef.markForCheck();
     });
-    
+
     if (profile) {
       this.emailText = profile.email;
       this.firstNameText = profile.firstName;
@@ -93,4 +90,7 @@ export class ProfilePageComponent implements OnInit {
       this.webSiteText == null
   }
 
+  public ngOnDestroy(): void {
+    this.profileService.profileValidationSubscription.unsubscribe();
+  }
 }

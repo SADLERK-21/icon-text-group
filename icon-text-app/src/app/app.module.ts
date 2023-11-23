@@ -7,7 +7,7 @@ import { HomeModule } from './pages/home-page/home-page.module';
 import { ApiSimulator } from './core-services/api-simulator';
 import { ProfileService } from './pages/profile-page/profile.service';
 import { AuthGuard } from './core-services/auth-guard';
-import { LoginService } from './core-services/login.service';
+import { LoginRegisterUserService } from './core-services/login-register-user.service';
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { LoginService } from './core-services/login.service';
     AppRoutingModule,
     HomeModule
   ],
-  providers: [LoginService, ApiSimulator, ProfileService, AuthGuard, ],
+  providers: [LoginRegisterUserService, ApiSimulator, AuthGuard, ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
