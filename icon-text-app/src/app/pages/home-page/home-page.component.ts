@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { HomePageTile } from './home-page-tile/home-page-tile.component';
 import { LoginRegisterUserService } from 'src/app/core-services/login-register-user.service';
 
@@ -8,7 +8,7 @@ import { LoginRegisterUserService } from 'src/app/core-services/login-register-u
   styleUrls: ['./home-page.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomePageComponent implements OnInit, OnDestroy {
+export class HomePageComponent implements OnInit {
   public tiles: HomePageTile[] = [
     { title: "Home", routerPath: "/home" },
     { title: "Inventory", routerPath: "/inventory" },
@@ -42,9 +42,5 @@ export class HomePageComponent implements OnInit, OnDestroy {
       }
     }
     return false;
-  }
-  
-  ngOnDestroy(): void {
-    this.loginService.userloginResponse.unsubscribe();
   }
 }

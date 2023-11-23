@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LoginRegisterUserService } from './core-services/login-register-user.service';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'icon-text-app';
 
   public firstNameText: string;
@@ -56,10 +56,5 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public onMessageClick() {
     this.viewMessage = false;
-  }
-
-  public ngOnDestroy(): void {
-    this.loginService.userloginResponse.unsubscribe();
-    this.loginService.userChangeResponse.unsubscribe();
   }
 }

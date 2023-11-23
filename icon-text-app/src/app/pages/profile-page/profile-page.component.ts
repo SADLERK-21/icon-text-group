@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IconInputType } from 'src/app/custom-tegs/icon-input/icon-input.component';
 import { ProfileValidationEvent, ProfileFields, ProfileService } from './profile.service';
 import { LoginRegisterUserService } from 'src/app/core-services/login-register-user.service';
@@ -8,7 +8,7 @@ import { LoginRegisterUserService } from 'src/app/core-services/login-register-u
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit, OnDestroy {
+export class ProfilePageComponent implements OnInit {
 
   public isEditable: boolean = false;
 
@@ -90,7 +90,17 @@ export class ProfilePageComponent implements OnInit, OnDestroy {
       this.webSiteText == null
   }
 
-  public ngOnDestroy(): void {
-    this.profileService.profileValidationSubscription.unsubscribe();
+  public discardChanges() {
+    const profile = this.loginSevice.profile;
+    if (profile) {
+      this.emailText = profile.email;
+      this.firstNameText = profile.firstName;
+      this.lastNameText = profile.lastName;
+      this.phoneNumber = profile.phoneNumber;
+      this.webSiteText = profile.websiteUrl;
+    }
+    this.setEditable()
+    console.log(this.isEditable);
+    this.changeDetectorRef.markForCheck();
   }
 }

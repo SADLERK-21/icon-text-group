@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IconInputType } from 'src/app/custom-tegs/icon-input/icon-input.component';
 import { ProfileValidationEvent, ProfileService, ProfileFields } from '../profile-page/profile.service';
 import { LoginRegisterUserService } from 'src/app/core-services/login-register-user.service';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit, OnDestroy {
+export class LoginPageComponent implements OnInit {
   public emailType = IconInputType.Email;
   public passwordType = IconInputType.Password;
   public textType = IconInputType.Text;
@@ -45,7 +45,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
           this.webSiteText,
           this.passwordText
         );
-        this.router.navigate(['/home']);
       }
       this.changeDetectorRef.markForCheck();
     });
@@ -55,6 +54,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.router.navigate(['/home']);
       }
     });
+
+    this.loginService.userChangeResponse.subscribe(response => {
+      if (response) {
+        this.router.navigate(['/home']);
+      }
+    })
   }
 
   public isValid(inputType: ProfileFields): boolean {
@@ -104,10 +109,5 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
     this.isRegisterProfileMode = false;
     this.changeDetectorRef.markForCheck();
-  }
-
-  public ngOnDestroy(): void {
-    this.profileService.profileValidationSubscription.unsubscribe();
-    this.loginService.userloginResponse.unsubscribe();
   }
 }
