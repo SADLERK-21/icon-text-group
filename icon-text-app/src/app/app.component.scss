@@ -21,11 +21,11 @@ header {
 .header-auth {
     height: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-left: auto;
     justify-content: center;
     align-items: center;
-    width: 10rem;
+    width: 15rem;
 }
 
 .header-auth-button {
@@ -42,6 +42,21 @@ header {
         color: white;
         border: 2px solid white;
         border-radius: 0px;
+    }
+}
+
+.header-log-out-button {
+    border: none;
+    font-size: 20px;
+    padding-right: 1rem;
+    background-color: static.$primary-color1;
+    padding: 1rem;
+    margin-left: 1rem;
+
+    transition: 0.3s 0s;
+
+    &:hover {
+        color: white;
     }
 }
 
@@ -77,4 +92,8 @@ footer {
     flex-direction: column;
     justify-content: center;
     padding-right: 1rem;
+}
+
+.profile {
+    font-size: 25px;
 }

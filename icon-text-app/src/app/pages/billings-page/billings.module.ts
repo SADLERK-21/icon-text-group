@@ -1,13 +1,11 @@
 import { CommonModule } from "@angular/common";
-import { LoginPageComponent } from "./login-page.component";
 import { HttpClientModule } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { IconInputModule } from "src/app/custom-tegs/icon-input/icon-input.model";
-import { ProfileService } from "../profile-page/profile.service";
+import { BillingsPageComponent } from "./billings-page.component";
 
 const routes: Routes = [
-    { path: '', component: LoginPageComponent },
+    { path: '', component: BillingsPageComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
@@ -15,14 +13,10 @@ const routes: Routes = [
     imports: [
         HttpClientModule,
         RouterModule.forChild(routes),
-        CommonModule,
-        IconInputModule
+        CommonModule
     ],
     declarations: [
-        LoginPageComponent
-    ],
-    providers: [
-        ProfileService
+        BillingsPageComponent
     ]
 })
-export class LoginPageModule { }
+export class BillingsModule { }

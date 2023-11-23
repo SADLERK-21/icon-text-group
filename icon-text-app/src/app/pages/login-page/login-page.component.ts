@@ -38,12 +38,24 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     this.profileService.profileValidationSubscription.subscribe(event => {
       this.profileValidationEvent = event;
-      console.log(event);
+      if (event.isPassed) {
+        this.loginService.setUser(
+          this.apiSim,
+          this.emailText,
+          this.firstNameText,
+          this.lastNameText,
+          this.phoneNumber,
+          this.webSiteText,
+          this.passwordText
+        );
+        this.router.navigate(['/home']);
+      }
       this.changeDetectorRef.markForCheck();
     });
+
     this.loginService.loginResponse.subscribe(response => {
-      if(response) {
-        this.router.navigate(['/profile']);
+      if (response) {
+        this.router.navigate(['/home']);
       }
     });
   }
@@ -75,6 +87,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   public loginUser() {
-    this.loginService.loginUser(this.emailText, this.passwordText, this.apiSim);
+    this.loginService.loginUser(this.emailText, this.passwordText);
   }
 }

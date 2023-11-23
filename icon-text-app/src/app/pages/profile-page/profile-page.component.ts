@@ -1,5 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Observable, Observer, Subject, Subscriber, of } from 'rxjs';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { IconInputType } from 'src/app/custom-tegs/icon-input/icon-input.component';
 import { ProfileValidationEvent, ProfileFields, ProfileService } from './profile.service';
 import { LoginService } from 'src/app/core-services/login.service';
@@ -10,7 +9,7 @@ import { ApiSimulator } from 'src/app/core-services/api-simulator';
   templateUrl: './profile-page.component.html',
   styleUrls: ['./profile-page.component.scss']
 })
-export class ProfilePageComponent implements OnInit, AfterViewInit {
+export class ProfilePageComponent implements OnInit {
 
   public isEditable: boolean = false;
 
@@ -34,21 +33,26 @@ export class ProfilePageComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+    const profile = this.loginSevice.getProfile(this.apiSim);
+
     this.profileService.profileValidationSubscription.subscribe(event => {
       this.profileValidationEvent = event;
-      console.log(event, '1-1');
+      if (event.isPassed && profile) {
+        this.loginSevice.setUser(
+          this.apiSim,
+          this.emailText,
+          this.firstNameText,
+          this.lastNameText,
+          this.phoneNumber,
+          this.webSiteText,
+          profile.password,
+          profile?.id
+        )
+        this.isEditable = false;
+      }
       this.changeDetectorRef.markForCheck();
     });
-    // this.loginSevice.loginedUserId.subscribe(id => {
-    //   console.log('id:', id);
-
-    // })
-
-
-
-    const profile = this.loginSevice.getProfile(this.apiSim);
-    console.log('√', this.apiSim.date);
-    console.log('profile: ', profile, '\n', 'id: ', this.apiSim.getLoginedProfileId());
+    
     if (profile) {
       this.emailText = profile.email;
       this.firstNameText = profile.firstName;
@@ -58,20 +62,6 @@ export class ProfilePageComponent implements OnInit, AfterViewInit {
 
       this.changeDetectorRef.markForCheck();
     }
-  }
-
-  ngAfterViewInit(): void {
-    //const profile = this.apiSim.getProfileById(this.apiSim.getLoginedProfileId());
-    //console.log('profile: ', profile, '\n', 'id: ', this.apiSim.getLoginedProfileId());
-    // if (profile) {
-    //   this.emailText = profile.email;
-    //   this.firstNameText = profile.firstName;
-    //   this.lastNameText = profile.lastName;
-    //   this.phoneNumber = profile.phoneNumber;
-    //   this.webSiteText = profile.websiteUrl;
-
-    //   this.changeDetectorRef.markForCheck();
-    // }
   }
 
   public setEditable() {

@@ -7,9 +7,19 @@
     </div>
 
     <div class="header-auth">
-      <button class="header-auth-button" [routerLink]="'/login'">
-        Sing In
-      </button>
+      <ng-container *ngIf="isLogined; else singInSection">
+        <div [routerLink]="'/profile'" class="profile">
+          {{profileName}}
+        </div>
+        <button class="header-log-out-button" (click)="logOut()">
+          Log out
+        </button>
+      </ng-container>
+      <ng-template #singInSection>
+        <button class="header-auth-button" [routerLink]="'/login'">
+          Sing In
+        </button>
+      </ng-template>
     </div>
 
   </div>

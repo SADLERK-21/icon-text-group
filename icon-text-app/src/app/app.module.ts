@@ -4,6 +4,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './pages/home-page/home-page.module';
+import { ApiSimulator } from './core-services/api-simulator';
+import { ProfileService } from './pages/profile-page/profile.service';
+import { AuthGuard } from './core-services/auth-guard';
+import { LoginService } from './core-services/login.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +18,7 @@ import { HomeModule } from './pages/home-page/home-page.module';
     AppRoutingModule,
     HomeModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [LoginService, ApiSimulator, ProfileService, AuthGuard, ],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

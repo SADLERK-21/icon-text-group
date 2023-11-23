@@ -9,6 +9,7 @@ export class HomePageTileComponent implements OnInit {
 
   @Input() public title: string = '';
   @Input() public routerPath: string = '';
+  @Input() isDisabled: boolean;
 
   constructor(
   ) { }
@@ -16,6 +17,9 @@ export class HomePageTileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public get disabledStyle(): string {
+    return this.isDisabled ? 'background-color: #444444; color: #6d6d6d; border: 2px solid #444444; pointer-events: none;' : '';
+  }
 }
 
 export interface HomePageTile {

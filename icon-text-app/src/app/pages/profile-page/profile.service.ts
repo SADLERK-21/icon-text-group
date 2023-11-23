@@ -1,15 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Profile } from "./profile";
 import { Subject } from "rxjs";
-import { ApiSimulator } from "src/app/core-services/api-simulator";
 
-Injectable()
+@Injectable()
 export class ProfileService {
     public profileValidationSubscription = new Subject<ProfileValidationEvent>();
-    
-
-    private profiles: Profile[] = [];
-
     public addNewProfile() {
     }
 
@@ -57,24 +51,6 @@ export class ProfileService {
         }
 
     }
-
-    // public getLoginetProfile(id: number, api: ApiSimulator): Profile | undefined {
-    //     return api.getProfileById(id);
-    // }
-
-    public deletProfile() {
-
-    }
-
-    // public checkProfileDate(
-    //     email: string,
-    //     firstName: string,
-    //     lastName: string,
-    //     phoneNumber: string,
-    //     webSite: string
-    // ) {
-
-    // }
 }
 
 export interface ProfileValidationEvent {
